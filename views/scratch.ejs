@@ -14,7 +14,7 @@
         <img class="fas err" src="error.png" alt="">
         <img src="information.png" alt="" class="fas">
     </div>
-    <div class="bal">Количество бонусов: <%= amount %> <br>Можно платить бонусами: <%= canpay %> <br>Номер карты: <%= number %>
+    <div class="bal">Количество бонусов:  <br>Можно платить бонусами:  <br>Номер карты:
         <br></div>
     <div class="block">
         <div class="cont">
@@ -68,13 +68,12 @@
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-$(".picture").attr('src', 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&color=505050&data=' + '<%= qr %>')
 </script>
 <script>
     $('.bal').hide();
     $('.fas').on('click', ()=> {
         $('.bal').show();
-    })
+    });
     $('.err').on('click', ()=> $('.bal').hide())
 </script>
 

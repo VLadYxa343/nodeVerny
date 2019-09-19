@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Верный автоштрих</title><link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="block">
+    <div class="first">Введите токен</div>
+        <form action="/getqr" method="post">
+            <input type="text" class="input" name="token">
+            <button type="submit">Загрузить автоштрих</button>
+        </form>
+</div>
+<style>
+    .first{
+        margin-bottom: 10px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 24px;
+
+    }
+    .input{
+        width: 150px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 18px;
+    }
+    button{
+        margin-top: 10px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 18px;
+    }
+</style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $('.input').oninput = function() {
+            var srint = $(".input").val().replace(/[а-яА-ЯЁё-і]/g, '');
+            srint.replace(/[а-яА-ЯЁё-і]/g, '');
+            $(".input").val(srint);
+        };
+    </script>
+</body>
+</html>
