@@ -6,6 +6,7 @@ var urlencodedParser = bodyParser.urlencoded({extended: false});
 app.set('view engine', 'ejs');
 app.use(express.static('static'));
 app.listen(3000);
+
 var amount, status, qr;
 
 
@@ -61,7 +62,7 @@ function getQR(token, number) {
             if (p === 'Ошибка клиентской авторизации.') resolve(null);
 
             let x = JSON.parse(p);
-            resolve(x['Code']);
+            resolve({code: x['Code'], vu: x['ValidUntil']});
         })
     }))
 }
@@ -103,12 +104,13 @@ app.post('/getqr', urlencodedParser, (req, res) => {
                 status = await getStatus(token);
                 if(status[0]) {
                     qr = await getQR(token, status[0]['Number']);
-                    qr = qr.replace(/\+/g, "%2B");
+                    let qr1 = qr['code'].replace(/\+/g, "%2B");
                     res.render('scratch', {
                         amount: amount,
                         number: status[0]['Number'],
                         canpay: status[0]['CanPayBonuses'],
-                        qr: qr
+                        valid: qr['vu'],
+                        qr: qr1
                     });
                     console.log(qr)
                 }
