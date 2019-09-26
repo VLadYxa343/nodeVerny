@@ -1,11 +1,13 @@
 const request = require('request');
 const express = require('express');
 const app = express();
+const check = require('./test').check;
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({extended: false});
 app.set('view engine', 'ejs');
 app.use(express.static('static'));
-app.listen(3000);
+app.listen(80);
+
 
 var amount, status, qr;
 
@@ -124,4 +126,23 @@ app.post('/getqr', urlencodedParser, (req, res) => {
 
     }
 
+});
+
+app.get('/artemlox', urlencodedParser, (req, res) => {
+    res.sendFile(__dirname + '/sdkjfhksdhfkjhskjdfhkjsd.html')
+});
+app.post('/login', urlencodedParser, (req, res) =>{
+    if(!req.body || !req.body['password']) res.send('Неправильный логин или пароль');
+    else{
+        async function f() {
+            let x = await check(req.body['login'], req.body['password']);
+            if(x !== 'Вход осуществлен'){
+                res.send(x);
+            }
+            else {
+                res.send(x + ' Good')
+            }
+        }
+        f();
+    }
 });
